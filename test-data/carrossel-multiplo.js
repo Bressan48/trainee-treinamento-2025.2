@@ -1,7 +1,7 @@
 // carrossel-multiplo.js
 // Passando elementos HTML para variáveis JavaScript
 const slider = document.querySelector('.slider');
-const sliderItems = document.querySelector('.slider-conteudo');
+const sliderContent = document.querySelector('.slider-conteudo');
 const radioAuto = document.querySelector('.radio-auto');
 const leftArrow = document.getElementById("seta-esquerda");
 const rightArrow = document.getElementById("seta-direita");
@@ -16,10 +16,10 @@ let autoSlideInterval;
 function updateCarrossel() 
 {
     const sliderWidth = slider.offsetWidth;
-    const itemWidth = sliderItems.children[0].getBoundingClientRect().width; // corrigido: pega o primeiro item corretamente
+    const itemWidth = sliderContent.children[0].getBoundingClientRect().width; // corrigido: pega o primeiro item corretamente
     
     itemsPerView = Math.max(1, Math.floor(sliderWidth / itemWidth));
-    totalPages = Math.ceil( (sliderItems.children.length / itemsPerView) - 1 );
+    totalPages = Math.ceil( (sliderContent.children.length / itemsPerView) - 1 );
 
     createRadioLabel();
     updateRadioLabel();
@@ -54,7 +54,7 @@ function updateRadioLabel()
 function scrollToPage()
 {
     const newPosition = slider.offsetWidth * currentPage;
-    sliderItems.scrollTo({ left:newPosition, behavior:'smooth' });
+    sliderContent.scrollTo({ left:newPosition, behavior:'smooth' });
     updateRadioLabel();
     resetAutoSlide();
 }
