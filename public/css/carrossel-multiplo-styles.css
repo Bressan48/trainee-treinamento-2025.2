@@ -39,12 +39,12 @@ body {
   scroll-behavior: smooth;
 }
 
-.carrossel-item {
+.slider-item {
   min-width: 30%;
   user-select: none;
 }
 
-.carrossel-item img {
+.slider-item img {
   width: 25vw;
   height: 35vh;
   object-fit: cover;

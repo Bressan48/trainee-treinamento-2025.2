@@ -1,32 +1,27 @@
-// carrossel-multiplo.js
+// carrossel-unico.js
 // Passando elementos HTML para variáveis JavaScript
-const slider = document.querySelector('.slider');
-const sliderItems = document.querySelector('.slider-conteudo');
+const sliderContent = document.querySelector('.slider-conteudo');
+const slides = document.querySelectorAll('.slider-item');
 const radioAuto = document.querySelector('.radio-auto');
 const leftArrow = document.getElementById("seta-esquerda");
 const rightArrow = document.getElementById("seta-direita");
 
 // Declarando variáveis globais
 let currentPage = 0;
-let itemsPerView = 1;
-let totalPages = 1;
+let totalPages = slides.length;
 let autoSlideInterval;
 
 // CRIAÇÃO/ORGANIZAÇÃO DO CARROSSEL
 function updateCarrossel() 
 {
-    const sliderWidth = slider.offsetWidth;
-    const itemWidth = sliderItems.children[0].getBoundingClientRect().width; // corrigido: pega o primeiro item corretamente
-    
-    itemsPerView = Math.max(1, Math.floor(sliderWidth / itemWidth));
-    totalPages = Math.ceil( (sliderItems.children.length / itemsPerView));
-
-    createLabelButtons();
-    updateLabelButtons();
+    const offset = -currentPage * 100; //empurra o elemento 100% da largura dele para a esquerda
+    sliderContent.style.transform = `translateX(${offset}%)`;
+    createRadioLabel();
+    updateRadioLabel();
 }
 
 // RADIO LABEL
-function createLabelButtons() 
+function createRadioLabel() 
 {
     radioAuto.innerHTML = "";
     for (let i = 0; i < totalPages; i++)
@@ -39,44 +34,29 @@ function createLabelButtons()
         }
         label.addEventListener('click', () => {
             currentPage = i;
-            scrollToPage();
+            updateCarrossel();
+            resetAutoSlide();
         });
         radioAuto.appendChild(label);
     }
 }
-function updateLabelButtons() 
+function updateRadioLabel() 
 {
     const labels = document.querySelectorAll('.radio-label');
-    labels.forEach((l, i) => l.classList.toggle('active', i === currentPage));
+    labels.forEach((l, i) => {
+        l.classList.toggle('active', i === currentPage)
+    });
 }
 
 // MOVIMENTAÇÃO
-function scrollToPage()
-{
-    const sliderWidth = slider.offsetWidth;
-    const newPosition = sliderWidth * currentPage;
-    sliderItems.scrollTo({ left: newPosition, behavior: 'smooth' });
-    updateLabelButtons();
+function moveLeft() {
+    currentPage = (currentPage - 1 + totalPages) % totalPages;
+    updateCarrossel();
     resetAutoSlide();
 }
-function moveLeft()
-{
-    currentPage--;
-    if (currentPage < 0)
-    {
-        currentPage = totalPages-1;
-    }
-    scrollToPage();
-    resetAutoSlide();
-}
-function moveRight()
-{
-    currentPage++;
-    if (currentPage >= totalPages)
-    {
-        currentPage = 0;
-    }
-    scrollToPage();
+function moveRight() {
+    currentPage = (currentPage + 1) % totalPages;
+    updateCarrossel();
     resetAutoSlide();
 }
 
@@ -94,8 +74,12 @@ function resetAutoSlide()
 }
 
 // EVENTOS
-leftArrow.addEventListener('click', moveLeft);
-rightArrow.addEventListener('click', moveRight);
+leftArrow.addEventListener('click', () => {
+    moveLeft();
+});
+rightArrow.addEventListener('click', () => {
+    moveRight();
+});
 window.addEventListener('resize', updateCarrossel);
 
 // CHAMADA DE INÍCIO DAS FUNÇÕES

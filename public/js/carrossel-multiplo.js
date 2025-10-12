@@ -21,12 +21,12 @@ function updateCarrossel()
     itemsPerView = Math.max(1, Math.floor(sliderWidth / itemWidth));
     totalPages = Math.ceil( (sliderItems.children.length / itemsPerView) - 1 );
 
-    createLabelButtons();
-    updateLabelButtons();
+    createRadioLabel();
+    updateRadioLabel();
 }
 
 // RADIO LABEL
-function createLabelButtons() 
+function createRadioLabel() 
 {
     radioAuto.innerHTML = "";
     for (let i = 0; i < totalPages; i++)
@@ -44,7 +44,7 @@ function createLabelButtons()
         radioAuto.appendChild(label);
     }
 }
-function updateLabelButtons() 
+function updateRadioLabel() 
 {
     const labels = document.querySelectorAll('.radio-label');
     labels.forEach((l, i) => l.classList.toggle('active', i === currentPage));
@@ -55,7 +55,7 @@ function scrollToPage()
 {
     const newPosition = slider.offsetWidth * currentPage;
     sliderItems.scrollTo({ left:newPosition, behavior:'smooth' });
-    updateLabelButtons();
+    updateRadioLabel();
     resetAutoSlide();
 }
 function moveLeft()
