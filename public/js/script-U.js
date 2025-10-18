@@ -12,7 +12,7 @@ let autoSlidesInterval;
 //FUNÇOES DE UPDATE
 function updateCarrossel() {
     const offset = -currentPage * 100;
-    sliderContent.style.transform = 'translateX(${offset}%)';
+    sliderContent.style.transform = `translateX(${offset}%)`;
     createRadioLabel();
     updateRadioLabel();
 }

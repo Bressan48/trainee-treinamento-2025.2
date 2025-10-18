@@ -15,8 +15,8 @@ function updateCarrossel() {
     const sliderWidth = slider.offsetWidth;
     const itemWidth = sliderContent.children[0].getBoundingClientRect().width;
 
-    itemPerView = (sliderWidth / itemWidth);
-    totalPages = Math.ceil((sliderContent.children.length / itemsPerView) - 2*((sliderWidth/itemWidth)/100))
+    itemsPerView = (sliderWidth / itemWidth);
+    totalPages = Math.ceil((sliderContent.children.length / itemsPerView) - 2*((sliderWidth/itemWidth)/100));
 
     createRadioLabel();
     updateRadioLabel();
