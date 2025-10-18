@@ -1,5 +1,5 @@
 //DECLARAÇÃO DE VARIAVEIS
-const slides = document.querySelectorAll('.sliders-item');
+const slides = document.querySelectorAll('.slider-item');
 const sliderContent = document.querySelector('.slider-conteudo');
 const radioAuto = document.querySelector('.radio-auto');
 const leftArrow = document.getElementById("seta-esquerda");
